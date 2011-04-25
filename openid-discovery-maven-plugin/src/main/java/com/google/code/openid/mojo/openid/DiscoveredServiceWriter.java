@@ -11,14 +11,34 @@ import org.jdom.output.XMLOutputter;
 
 import com.google.code.openid.mojo.DiscoveredService;
 
+/**
+ * A utility object to write information out about a given set of services.
+ * 
+ * @author jrh3k5
+ * 
+ */
+
 public class DiscoveredServiceWriter {
     private final Namespace xrdsNamespace;
     private final Namespace xrdNamespace;
 
+    /**
+     * Create a writer.
+     */
     public DiscoveredServiceWriter() {
         this(Namespace.getNamespace("xri://$xrds"), Namespace.getNamespace("xri://$xrd*($v*2.0)"));
     }
 
+    /**
+     * Create a writer.
+     * 
+     * @param xrdsNamespace
+     *            The {@link Namespace} of the {@code <XRDS />} element.
+     * @param xrdNamespace
+     *            The {@link Namespace} of the {@code <XRD />} element.
+     * @throws IllegalArgumentException
+     *             If either of the given namespaces are {@code null}.
+     */
     public DiscoveredServiceWriter(Namespace xrdsNamespace, Namespace xrdNamespace) {
         if (xrdsNamespace == null)
             throw new IllegalArgumentException("XRDS namespace cannot be null.");
@@ -30,8 +50,19 @@ public class DiscoveredServiceWriter {
         this.xrdNamespace = xrdNamespace;
     }
 
-    public void write(String xriCanonicalId, Collection<DiscoveredService> services, OutputStream outputStream)
-            throws IOException {
+    /**
+     * Write out information about services.
+     * 
+     * @param xriCanonicalId
+     *            The optional {@code <CanonicalID />} to be written out as part of the document.
+     * @param services
+     *            A {@link Collection} of {@link DiscoveredService} objects representing the service data to be written out.
+     * @param outputStream
+     *            The {@link OutputStream} to which the data is to be written.
+     * @throws IOException
+     *             If any errors occur during the write-out.
+     */
+    public void write(String xriCanonicalId, Collection<DiscoveredService> services, OutputStream outputStream) throws IOException {
         if (services == null)
             throw new IllegalArgumentException("Services cannot be null.");
 
