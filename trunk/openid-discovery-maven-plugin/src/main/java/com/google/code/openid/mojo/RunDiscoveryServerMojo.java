@@ -11,6 +11,7 @@ import org.apache.maven.plugin.MojoFailureException;
  * @goal run
  */
 
+// TODO: unit test
 public class RunDiscoveryServerMojo extends StartDiscoveryServerMojo {
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {

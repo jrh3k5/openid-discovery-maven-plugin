@@ -19,36 +19,8 @@ import com.google.code.openid.mojo.DiscoveredService;
  */
 
 public class DiscoveredServiceWriter {
-    private final Namespace xrdsNamespace;
-    private final Namespace xrdNamespace;
-
-    /**
-     * Create a writer.
-     */
-    public DiscoveredServiceWriter() {
-        this(Namespace.getNamespace("xri://$xrds"), Namespace.getNamespace("xri://$xrd*($v*2.0)"));
-    }
-
-    /**
-     * Create a writer.
-     * 
-     * @param xrdsNamespace
-     *            The {@link Namespace} of the {@code <XRDS />} element.
-     * @param xrdNamespace
-     *            The {@link Namespace} of the {@code <XRD />} element.
-     * @throws IllegalArgumentException
-     *             If either of the given namespaces are {@code null}.
-     */
-    public DiscoveredServiceWriter(Namespace xrdsNamespace, Namespace xrdNamespace) {
-        if (xrdsNamespace == null)
-            throw new IllegalArgumentException("XRDS namespace cannot be null.");
-
-        if (xrdNamespace == null)
-            throw new IllegalArgumentException("XRD namespace cannot be null.");
-
-        this.xrdsNamespace = xrdsNamespace;
-        this.xrdNamespace = xrdNamespace;
-    }
+    private final Namespace xrdNamespace = Namespace.getNamespace("xri://$xrd*($v*2.0)");
+    private final Namespace xrdsNamespace = Namespace.getNamespace("xri://$xrds");
 
     /**
      * Write out information about services.

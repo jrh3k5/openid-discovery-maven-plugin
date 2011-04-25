@@ -67,7 +67,7 @@ public class DiscoveredServiceHandler extends AbstractHandler {
     public void handle(String target, HttpServletRequest request, HttpServletResponse response, int dispatch) throws IOException, ServletException {
         final List<DiscoveredService> matches = new LinkedList<DiscoveredService>();
         for (DiscoveredService service : services)
-            if (service.getHostRegex().matcher(target).matches())
+            if (service.matchesHostRegex(target))
                 matches.add(service);
 
         if (!matches.isEmpty()) {
