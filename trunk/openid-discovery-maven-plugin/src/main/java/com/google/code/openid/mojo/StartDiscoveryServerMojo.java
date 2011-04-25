@@ -1,6 +1,7 @@
 package com.google.code.openid.mojo;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -25,10 +26,8 @@ public class StartDiscoveryServerMojo extends AbstractDiscoveryServerMojo {
     private int serverPort;
 
     /**
-     * The service information that should served out by the discovery server.
-     * The served-out discovery document will be an amalgamation of all services
-     * whose {@link DiscoveredService#setHostRegex(String) hostRegex} match the
-     * request URI.
+     * The service information that should served out by the discovery server. The served-out discovery document will be an amalgamation of all services whose
+     * {@link DiscoveredService#setHostRegex(String) hostRegex} match the request URI.
      * 
      * @parameter
      * @required
@@ -36,10 +35,8 @@ public class StartDiscoveryServerMojo extends AbstractDiscoveryServerMojo {
     private DiscoveredService[] services;
 
     /**
-     * The XRI canonical ID to be used when serving out discovery information
-     * with XRI identifiers. Unlike the {@link #services services} parameter,
-     * the served-out document will contain <i>only</i> the first canonical ID
-     * that matches (if any).
+     * The XRI canonical ID to be used when serving out discovery information with XRI identifiers. Unlike the {@link #services services} parameter, the served-out document will contain <i>only</i>
+     * the first canonical ID that matches (if any).
      * 
      * @parameter
      */
@@ -50,7 +47,7 @@ public class StartDiscoveryServerMojo extends AbstractDiscoveryServerMojo {
      */
     public void execute() throws MojoExecutionException, MojoFailureException {
         try {
-            startServer(serverPort, Arrays.asList(canonicalIds), Arrays.asList(services));
+            startServer(serverPort, canonicalIds == null ? Collections.<DiscoveryCanonicalId> emptyList() : Arrays.asList(canonicalIds), Arrays.asList(services));
         } catch (Exception e) {
             throw new MojoExecutionException("Error starting discovery server.", e);
         }
