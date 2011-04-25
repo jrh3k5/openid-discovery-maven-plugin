@@ -15,7 +15,6 @@ import java.util.regex.Pattern;
  * 
  */
 
-// TODO: unit test
 public class DiscoveryCanonicalId {
     private Pattern hostRegex;
     private String canonicalId;

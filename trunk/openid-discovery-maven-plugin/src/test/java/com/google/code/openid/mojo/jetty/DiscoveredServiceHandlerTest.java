@@ -135,6 +135,7 @@ public class DiscoveredServiceHandlerTest {
      *             If any errors occur during the test run.
      */
     @SuppressWarnings({ "unchecked", "rawtypes" })
+    @Test
     public void testHandleNoCanonicalId() throws Exception {
         final String targetUri = "target/uri";
 
