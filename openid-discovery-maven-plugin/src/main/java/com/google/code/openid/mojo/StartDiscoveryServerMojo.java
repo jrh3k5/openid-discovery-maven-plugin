@@ -14,6 +14,7 @@ import org.apache.maven.plugin.MojoFailureException;
  * @phase pre-integration-test
  */
 
+// TODO: unit test
 public class StartDiscoveryServerMojo extends AbstractDiscoveryServerMojo {
     /**
      * The port on which the discovery server should receive requests.

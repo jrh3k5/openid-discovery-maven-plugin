@@ -25,20 +25,6 @@ public class DiscoveredService {
     private String localId;
 
     /**
-     * Get the regular expression used to match against the request path.
-     * 
-     * @return A {@link Pattern} to be used to match against the request path.
-     * @throws IllegalStateException
-     *             If the regular expression has not yet been {@link #setHostRegex(String)}.
-     */
-    public Pattern getHostRegex() {
-        if (hostRegex == null)
-            throw new IllegalStateException("Host regular expression has not yet been set prior to retrieval.");
-
-        return hostRegex;
-    }
-
-    /**
      * Get the local ID.
      * 
      * @return The local ID. This can be {@code null}.
@@ -66,7 +52,7 @@ public class DiscoveredService {
     public String getType() {
         if (type == null)
             throw new IllegalStateException("Type has not yet been set prior to retrieval.");
-    
+
         return type;
     }
 
@@ -80,8 +66,24 @@ public class DiscoveredService {
     public String getUri() {
         if (uri == null)
             throw new IllegalStateException("URI has not yet been set prior to retrieval.");
-    
+
         return uri;
+    }
+
+    /**
+     * Determine whether or not the given URI matches the stored host regex.
+     * 
+     * @param uri
+     *            The URI to be matched against the host regex.
+     * @return {@code true} if the given URI matches the host regex; {@code false} if not.
+     * @throws IllegalStateException
+     *             If the host regex has not yet been {@link #setHostRegex(String) set}.
+     */
+    public boolean matchesHostRegex(String uri) {
+        if (hostRegex == null)
+            throw new IllegalStateException("Host regex pattern has not been set prior to retrieval.");
+
+        return hostRegex.matcher(uri).matches();
     }
 
     /**
@@ -95,7 +97,7 @@ public class DiscoveredService {
     public void setHostRegex(String hostRegex) {
         if (hostRegex == null)
             throw new IllegalArgumentException("Host regular expression cannot be null.");
-    
+
         this.hostRegex = Pattern.compile(hostRegex);
     }
 
@@ -135,7 +137,7 @@ public class DiscoveredService {
     public void setType(String type) {
         if (type == null)
             throw new IllegalArgumentException("Type cannot be null.");
-    
+
         this.type = type;
     }
 
@@ -150,7 +152,7 @@ public class DiscoveredService {
     public void setUri(String uri) {
         if (uri == null)
             throw new IllegalArgumentException("URI cannot be null.");
-    
+
         this.uri = uri;
     }
 }
