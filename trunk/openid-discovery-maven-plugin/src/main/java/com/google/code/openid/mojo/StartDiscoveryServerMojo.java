@@ -23,9 +23,12 @@ public class StartDiscoveryServerMojo extends AbstractDiscoveryServerMojo {
      * @required
      */
     private int serverPort;
-    
+
     /**
      * The service information that should served out by the discovery server.
+     * The served-out discovery document will be an amalgamation of all services
+     * whose {@link DiscoveredService#setHostRegex(String) hostRegex} match the
+     * request URI.
      * 
      * @parameter
      * @required
@@ -33,18 +36,21 @@ public class StartDiscoveryServerMojo extends AbstractDiscoveryServerMojo {
     private DiscoveredService[] services;
 
     /**
-     * The XRI canonical ID to be used when serving out discovery information with XRI identifiers.
+     * The XRI canonical ID to be used when serving out discovery information
+     * with XRI identifiers. Unlike the {@link #services services} parameter,
+     * the served-out document will contain <i>only</i> the first canonical ID
+     * that matches (if any).
      * 
      * @parameter
      */
-    private String xriCanonicalId;
+    private DiscoveryCanonicalId[] canonicalIds;
 
     /**
      * {@inheritDoc}
      */
     public void execute() throws MojoExecutionException, MojoFailureException {
         try {
-            startServer(serverPort, xriCanonicalId, Arrays.asList(services));
+            startServer(serverPort, Arrays.asList(canonicalIds), Arrays.asList(services));
         } catch (Exception e) {
             throw new MojoExecutionException("Error starting discovery server.", e);
         }

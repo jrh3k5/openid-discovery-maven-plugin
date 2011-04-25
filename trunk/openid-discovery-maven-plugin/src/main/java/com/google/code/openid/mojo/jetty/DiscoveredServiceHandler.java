@@ -13,6 +13,7 @@ import org.mortbay.jetty.Request;
 import org.mortbay.jetty.handler.AbstractHandler;
 
 import com.google.code.openid.mojo.DiscoveredService;
+import com.google.code.openid.mojo.DiscoveryCanonicalId;
 import com.google.code.openid.mojo.openid.DiscoveredServiceWriter;
 
 /**
@@ -24,41 +25,44 @@ import com.google.code.openid.mojo.openid.DiscoveredServiceWriter;
 
 public class DiscoveredServiceHandler extends AbstractHandler {
     private final Collection<DiscoveredService> services;
+    private final List<DiscoveryCanonicalId> canonicalIds;
     private final DiscoveredServiceWriter writer;
-    private final String xriCanonicalId;
 
     /**
      * Create a handler.
      * 
-     * @param xriCanonicalId
-     *            The optional canonical ID to be used in the served-out discovery document; this can be {@code null}.
+     * @param canonicalIds
+     *            A {@link List} of {@link DiscoveryCanonicalId} objects representing the canonical IDs that could be written out.
      * @param services
      *            A {@link Collection} of {@link DiscoveredService} objects that represent the services to be handled by this handler.
      */
-    public DiscoveredServiceHandler(String xriCanonicalId, Collection<DiscoveredService> services) {
-        this(xriCanonicalId, services, new DiscoveredServiceWriter());
+    public DiscoveredServiceHandler(List<DiscoveryCanonicalId> canonicalIds, Collection<DiscoveredService> services) {
+        this(canonicalIds, services, new DiscoveredServiceWriter());
     }
 
     /**
      * Create a handler.
      * 
-     * @param xriCanonicalId
-     *            The optional canonical ID to be used in the served-out discovery document; this can be {@code null}.
+     * @param canonicalIds
+     *            A {@link List} of {@link DiscoveryCanonicalId} objects representing the canonical IDs that could be written out.
      * @param services
      *            A {@link Collection} of {@link DiscoveredService} objects that represent the services to be handled by this handler.
      * @param writer
      *            A {@link DiscoveredServiceWriter} used to write out information about the services matching the request.
      */
-    public DiscoveredServiceHandler(String xriCanonicalId, Collection<DiscoveredService> services, DiscoveredServiceWriter writer) {
+    public DiscoveredServiceHandler(List<DiscoveryCanonicalId> canonicalIds, Collection<DiscoveredService> services, DiscoveredServiceWriter writer) {
         if (services == null)
             throw new IllegalArgumentException("Services cannot be null.");
 
         if (writer == null)
             throw new IllegalArgumentException("Writer cannot be null.");
+        
+        if(canonicalIds == null)
+            throw new IllegalArgumentException("The canonical IDs cannot be null.");
 
         this.services = services;
         this.writer = writer;
-        this.xriCanonicalId = xriCanonicalId;
+        this.canonicalIds = canonicalIds;
     }
 
     /**
@@ -70,10 +74,17 @@ public class DiscoveredServiceHandler extends AbstractHandler {
             if (service.matchesHostRegex(target))
                 matches.add(service);
 
-        if (!matches.isEmpty()) {
+        DiscoveryCanonicalId matchId = null;
+        for(DiscoveryCanonicalId canonicalId : canonicalIds)
+            if(canonicalId.matchesHostRegex(target)) {
+                matchId = canonicalId;
+                break;
+            }
+        
+        if (!matches.isEmpty() || matchId != null) {            
             response.setHeader("content-type", "application/xrds+xml");
             response.setStatus(HttpServletResponse.SC_OK);
-            writer.write(xriCanonicalId, matches, response.getOutputStream());
+            writer.write(matchId, matches, response.getOutputStream());
             ((Request) request).setHandled(true);
         }
     }

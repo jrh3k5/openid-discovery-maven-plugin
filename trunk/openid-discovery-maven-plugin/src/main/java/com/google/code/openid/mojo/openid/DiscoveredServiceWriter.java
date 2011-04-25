@@ -10,6 +10,7 @@ import org.jdom.Namespace;
 import org.jdom.output.XMLOutputter;
 
 import com.google.code.openid.mojo.DiscoveredService;
+import com.google.code.openid.mojo.DiscoveryCanonicalId;
 
 /**
  * A utility object to write information out about a given set of services.
@@ -25,16 +26,20 @@ public class DiscoveredServiceWriter {
     /**
      * Write out information about services.
      * 
-     * @param xriCanonicalId
-     *            The optional {@code <CanonicalID />} to be written out as part of the document.
+     * @param canonicalId
+     *            The optional {@link DiscoveryCanonicalId} representing, if not
+     *            {@code null}, the {@code <CanonicalID />} to be written out as
+     *            part of the document.
      * @param services
-     *            A {@link Collection} of {@link DiscoveredService} objects representing the service data to be written out.
+     *            A {@link Collection} of {@link DiscoveredService} objects
+     *            representing the service data to be written out.
      * @param outputStream
      *            The {@link OutputStream} to which the data is to be written.
      * @throws IOException
      *             If any errors occur during the write-out.
      */
-    public void write(String xriCanonicalId, Collection<DiscoveredService> services, OutputStream outputStream) throws IOException {
+    public void write(DiscoveryCanonicalId canonicalId, Collection<DiscoveredService> services,
+            OutputStream outputStream) throws IOException {
         if (services == null)
             throw new IllegalArgumentException("Services cannot be null.");
 
@@ -42,8 +47,8 @@ public class DiscoveredServiceWriter {
             throw new IllegalArgumentException("Output stream cannot be null.");
 
         final Element xrdElement = new Element("XRD", xrdNamespace);
-        if (xriCanonicalId != null)
-            xrdElement.addContent(asElement("CanonicalID", xrdNamespace, xriCanonicalId));
+        if (canonicalId != null)
+            xrdElement.addContent(asElement("CanonicalID", xrdNamespace, canonicalId.getCanonicalId()));
 
         for (DiscoveredService service : services) {
             final Element serviceElement = new Element("Service", xrdNamespace);

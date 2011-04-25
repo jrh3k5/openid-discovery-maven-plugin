@@ -1,6 +1,7 @@
 package com.google.code.openid.mojo;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.mortbay.jetty.Server;
@@ -31,17 +32,17 @@ public abstract class AbstractDiscoveryServerMojo extends AbstractMojo {
      * 
      * @param port
      *            The port on which the server is to listen.
-     * @param xriCanonicalId
-     *            An optional {@code <CanonicalID />} element to be provided in the discovery document; this can be {@code null}.
+     * @param canonicalIds
+     *            A {@link List} of {@link DiscoveryCanonicalId} objects representing the canonical IDs that could be written out.
      * @param services
      *            A {@link Collection} of {@link DiscoveredService} objects representing the services to be hosted by this discovery service.
      * @throws Exception
      *             If any errors occur during the startup of the server.
      */
-    protected void startServer(int port, String xriCanonicalId, Collection<DiscoveredService> services) throws Exception {
+    protected void startServer(int port, List<DiscoveryCanonicalId> canonicalIds, Collection<DiscoveredService> services) throws Exception {
         stopServer();
         server = new Server(port);
-        server.setHandler(new DiscoveredServiceHandler(xriCanonicalId, services));
+        server.setHandler(new DiscoveredServiceHandler(canonicalIds, services));
         server.start();
     }
 
