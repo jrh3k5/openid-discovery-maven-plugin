@@ -1,6 +1,8 @@
 package com.google.code.openid.mojo.openid;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -22,6 +24,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import com.google.code.openid.mojo.DiscoveredService;
+import com.google.code.openid.mojo.DiscoveryCanonicalId;
 
 /**
  * Unit tests for {@link DiscoveredServiceWriter}.
@@ -45,6 +48,7 @@ public class DiscoveredServiceWriterTest {
      * Test the writing of services to an output stream.
      * 
      * @throws Exception
+     *             If any errors occur during the test run.
      */
     @Test
     public void testWrite() throws Exception {
@@ -105,7 +109,9 @@ public class DiscoveredServiceWriterTest {
         final ByteArrayOutputStream out = new ByteArrayOutputStream();
 
         final String xriCanonicalId = "this is a canonical ID";
-        writer.write(xriCanonicalId, Collections.<DiscoveredService> emptySet(), out);
+        final DiscoveryCanonicalId canonicalId = mock(DiscoveryCanonicalId.class);
+        when(canonicalId.getCanonicalId()).thenReturn(xriCanonicalId);
+        writer.write(canonicalId, Collections.<DiscoveredService> emptySet(), out);
 
         assertThat(getCanonicalId(toDocument(out))).isEqualTo(xriCanonicalId);
     }
@@ -119,7 +125,7 @@ public class DiscoveredServiceWriterTest {
     @Test
     public void testWriteWithLocalId() throws Exception {
         final ByteArrayOutputStream out = new ByteArrayOutputStream();
-    
+
         final String type = "this is the type";
         final String uri = "this is the uri";
         final String localId = "this is a local id";
@@ -127,12 +133,12 @@ public class DiscoveredServiceWriterTest {
         service.setType(type);
         service.setUri(uri);
         service.setLocalId(localId);
-    
+
         writer.write(null, Collections.singleton(service), out);
-    
+
         final Collection<DiscoveredService> services = getServices(toDocument(out));
         assertThat(services).hasSize(1);
-    
+
         final DiscoveredService discovered = services.iterator().next();
         assertThat(discovered.getUri()).isEqualTo(uri);
         assertThat(discovered.getType()).isEqualTo(type);
