@@ -82,7 +82,7 @@
                         <phase>integration-test</phase>
                         <configuration>
                             <includes>
-                                <include>**/DiscoverTest.java</include>
+                                <include>**/BasicDiscoveryTest.java</include>
                             </includes>
                             <excludes>
                                 <exclude>none</exclude>
