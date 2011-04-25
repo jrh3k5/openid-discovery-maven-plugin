@@ -17,6 +17,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <jdk.version>1.5</jdk.version>
     </properties>
+    <url>http://code.google.com/p/openid-discovery-maven-plugin/</url>
     <scm>
         <connection>scm:svn:https://openid-discovery-maven-plugin.googlecode.com/svn/trunk/${project.artifactId}</connection>
         <developerConnection>scm:svn:https://openid-discovery-maven-plugin.googlecode.com/svn/trunk/${project.artifactId}</developerConnection>
