@@ -12,9 +12,10 @@ import org.apache.maven.plugin.MojoFailureException;
  * @phase post-integration-test
  */
 
-// TODO: unit test
 public class StopDiscoveryServerMojo extends AbstractDiscoveryServerMojo {
-
+    /**
+     * {@inheritDoc}
+     */
     public void execute() throws MojoExecutionException, MojoFailureException {
         try {
             stopServer();
