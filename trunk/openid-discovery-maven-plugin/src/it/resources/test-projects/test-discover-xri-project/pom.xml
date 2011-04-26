@@ -1,6 +1,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.google.code.openid.test</groupId>
+    <groupId>com.googlecode.openid-discovery-maven-plugin</groupId>
     <artifactId>test-discover-xri-project</artifactId>
     <version>1.0-SNAPSHOT</version>
     <name>Test Discover Project</name>
@@ -8,7 +8,7 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>com.google.code.openid</groupId>
+                <groupId>${project.groupId}</groupId>
                 <artifactId>openid-discovery-maven-plugin</artifactId>
                 <version>${plugin.version}</version>
                 <configuration>

@@ -5,7 +5,7 @@
         <artifactId>oss-parent</artifactId>
         <version>7</version>
     </parent>
-    <groupId>com.google.code.openid</groupId>
+    <groupId>com.googlecode.openid-discovery-maven-plugin</groupId>
     <artifactId>openid-discovery-maven-plugin</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>maven-plugin</packaging>
@@ -101,7 +101,7 @@
                             <goal>run</goal>
                         </goals>
                         <configuration>
-                            <projectsDirectory>${project.build.directory}/it-projects/test-projects</projectsDirectory>
+                            <projectsDirectory>${project.build.directory}/it/test-projects</projectsDirectory>
                             <goals>
                                 <goal>verify</goal>
                             </goals>
@@ -121,7 +121,7 @@
                         </goals>
                         <phase>pre-integration-test</phase>
                         <configuration>
-                            <outputDirectory>${project.build.directory}/it-projects/test-projects</outputDirectory>
+                            <outputDirectory>${project.build.directory}/it/test-projects</outputDirectory>
                             <resources>
                                 <resource>
                                     <directory>src/it/resources/test-projects</directory>
