@@ -1,0 +1,24 @@
+<FindBugsFilter>
+    <!-- The field is static so that it persists across executions of the plugin, and the methods are instance to facilitate testing -->
+    <Match>
+        <Class name="com.google.code.openid.mojo.AbstractDiscoveryServerMojo" />
+        <Field name="server" />
+        <Bug pattern="ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD" />
+    </Match>
+    <!-- These are fields written to by Maven, so we're not worried about them not being "written to" -->
+    <Match>
+        <Class name="com.google.code.openid.mojo.StartDiscoveryServerMojo" />
+        <Field name="canonicalIds" />
+        <Bug pattern="UWF_UNWRITTEN_FIELD" />
+    </Match>
+    <Match>
+        <Class name="com.google.code.openid.mojo.StartDiscoveryServerMojo" />
+        <Field name="services" />
+        <Bug pattern="UWF_UNWRITTEN_FIELD" />
+    </Match>
+    <Match>
+        <Class name="com.google.code.openid.mojo.StartDiscoveryServerMojo" />
+        <Field name="serverPort" />
+        <Bug pattern="UWF_UNWRITTEN_FIELD" />
+    </Match>
+</FindBugsFilter>
