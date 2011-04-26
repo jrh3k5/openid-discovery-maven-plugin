@@ -72,7 +72,17 @@ public class DiscoveredServiceWriter {
 
     }
 
-    // TODO: Javadoc
+    /**
+     * Create a JDOM element out of the given data.
+     * 
+     * @param name
+     *            The name of the element.
+     * @param namespace
+     *            The namespace of the element.
+     * @param textValue
+     *            The value to be inserted as the textual value of the element.
+     * @return An {@link Element} representing the given data.
+     */
     private Element asElement(String name, Namespace namespace, String textValue) {
         final Element element = new Element(name, namespace);
         element.setText(textValue);

@@ -21,7 +21,7 @@ public abstract class AbstractDiscoveryServerMojo extends AbstractMojo {
     /**
      * Get the server in use.
      * 
-     * @return A {@link Server} reference to the server being used as a discovery server; if {@code null}, then no server has been started.
+     * @return A {@link Server} reference to the server being used as a discovery server; if {@code null}, then no server is running.
      */
     protected Server getServer() {
         return server;
@@ -55,5 +55,6 @@ public abstract class AbstractDiscoveryServerMojo extends AbstractMojo {
     protected void stopServer() throws Exception {
         if (server != null && !server.isStopping())
             server.stop();
+        server = null;
     }
 }
