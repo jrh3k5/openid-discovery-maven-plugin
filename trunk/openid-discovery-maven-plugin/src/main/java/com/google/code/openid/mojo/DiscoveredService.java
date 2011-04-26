@@ -16,7 +16,6 @@ import java.util.regex.Pattern;
  * 
  */
 
-// TODO: unit tests
 public class DiscoveredService {
     private Pattern hostRegex;
     private String uri;
