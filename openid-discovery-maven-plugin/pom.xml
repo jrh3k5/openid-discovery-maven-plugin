@@ -24,8 +24,8 @@
         <url>https://openid-discovery-maven-plugin.googlecode.com/svn/trunk/openid-discovery-maven-plugin</url>
     </scm>
     <issueManagement>
-        <system>Google Code</system>
-        <url>http://code.google.com/p/openid-discovery-maven-plugin/issues/list</url>
+        <system>GoogleCode</system>
+        <url>http://code.google.com/p/openid-discovery-maven-plugin/issues/</url>
     </issueManagement>
     <licenses>
         <license>
@@ -132,6 +132,36 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>1.0.1</version>
+                <configuration>
+                    <rules>
+                        <requireMavenVersion>
+                            <version>[2.2.1,3.0)</version>
+                        </requireMavenVersion>
+                        <requireJavaVersion>
+                            <version>[1.5,1.6)</version>
+                        </requireJavaVersion>
+                    </rules>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>enforce-versions-build</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <phase>validate</phase>
+                    </execution>
+                    <execution>
+                        <id>enforce-versions-site</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <phase>pre-site</phase>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
     <dependencies>
@@ -204,6 +234,18 @@
     </dependencies>
     <reporting>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-changes-plugin</artifactId>
+                <version>2.7.1</version>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>changes-report</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
             <plugin>
                 <artifactId>maven-invoker-plugin</artifactId>
                 <version>1.5</version>
