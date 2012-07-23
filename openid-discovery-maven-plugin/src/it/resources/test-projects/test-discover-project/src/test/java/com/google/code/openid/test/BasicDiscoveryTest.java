@@ -37,7 +37,7 @@ public class BasicDiscoveryTest {
     public void testDiscover() throws Exception {
         @SuppressWarnings("unchecked")
         final List<DiscoveryInformation> discovered = discovery.discover("http://localhost:1337/test");
-        assertThat(discovered).hasSize(2);
+        assertThat(discovered).hasSize(4);
 
         boolean hasTest1 = false;
         boolean hasTest2 = false;
@@ -62,8 +62,8 @@ public class BasicDiscoveryTest {
     public void testCharacterRangeDiscovery() throws Exception {
         final List<DiscoveryInformation> acbDiscovered = discovery.discover("http://localhost:1337/regex/acb123");
         final List<DiscoveryInformation> accDiscovered = discovery.discover("http://localhost:1337/regex/acc123");
-        assertThat(acbDiscovered).hasSize(1);
-        assertThat(accDiscovered).hasSize(1);
+        assertThat(acbDiscovered).hasSize(2);
+        assertThat(accDiscovered).hasSize(2);
         assertThat(acbDiscovered.get(0).getOPEndpoint().toExternalForm()).isEqualTo("http://regex-test/a-c+123");
         assertThat(accDiscovered.get(0).getOPEndpoint().toExternalForm()).isEqualTo("http://regex-test/a-c+123");
     }
@@ -79,8 +79,8 @@ public class BasicDiscoveryTest {
     public void testWildcardDiscovery() throws Exception {
         final List<DiscoveryInformation> dDiscovered = discovery.discover("http://localhost:1337/regex/abcdef");
         final List<DiscoveryInformation> eDiscovered = discovery.discover("http://localhost:1337/regex/abceef");
-        assertThat(dDiscovered).hasSize(1);
-        assertThat(eDiscovered).hasSize(1);
+        assertThat(dDiscovered).hasSize(2);
+        assertThat(eDiscovered).hasSize(2);
         assertThat(dDiscovered.get(0).getOPEndpoint().toExternalForm()).isEqualTo("http://regex-test/wildcard");
         assertThat(eDiscovered.get(0).getOPEndpoint().toExternalForm()).isEqualTo("http://regex-test/wildcard");
     }
@@ -95,7 +95,7 @@ public class BasicDiscoveryTest {
     @Test
     public void testEscapedWildcardDiscovery() throws Exception {
         final List<DiscoveryInformation> discovered = discovery.discover("http://localhost:1337/regex/ghi.kl");
-        assertThat(discovered).hasSize(1);
+        assertThat(discovered).hasSize(2);
         assertThat(discovered.get(0).getOPEndpoint().toExternalForm()).isEqualTo("http://regex-test/escaped-wildcard");
 
         // The wildcard shouldn't be an actual wildcard

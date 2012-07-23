@@ -17,27 +17,42 @@
                     <services>
                         <service>
                             <hostRegex><![CDATA[\/test]]></hostRegex>
-                            <type>http://specs.openid.net/auth/2.0/server</type>
+                            <types>
+                                <type>http://specs.openid.net/auth/2.0/server</type>
+                                <type>http://specs.openid.net/auth/2.0/signon</type>
+                            </types>
                             <uri>http://test1</uri>
                         </service>
                         <service>
                             <hostRegex><![CDATA[\/test]]></hostRegex>
-                            <type>http://specs.openid.net/auth/2.0/server</type>
+                            <types>
+                                <type>http://specs.openid.net/auth/2.0/server</type>
+                                <type>http://specs.openid.net/auth/2.0/signon</type>
+                            </types>
                             <uri>http://test2</uri>
                         </service>
                         <server>
                             <hostRegex><![CDATA[\/regex\/[a-c]+123]]></hostRegex>
-                            <type>http://specs.openid.net/auth/2.0/server</type>
+                            <types>
+                                <type>http://specs.openid.net/auth/2.0/server</type>
+                                <type>http://specs.openid.net/auth/2.0/signon</type>
+                            </types>
                             <uri>http://regex-test/a-c+123</uri>
                         </server>
                         <server>
                             <hostRegex><![CDATA[\/regex\/abc.ef]]></hostRegex>
-                            <type>http://specs.openid.net/auth/2.0/server</type>
+                            <types>
+                                <type>http://specs.openid.net/auth/2.0/server</type>
+                                <type>http://specs.openid.net/auth/2.0/signon</type>
+                            </types>
                             <uri>http://regex-test/wildcard</uri>
                         </server>
                         <server>
                             <hostRegex><![CDATA[\/regex\/ghi\.kl]]></hostRegex>
-                            <type>http://specs.openid.net/auth/2.0/server</type>
+                            <types>
+                                <type>http://specs.openid.net/auth/2.0/server</type>
+                                <type>http://specs.openid.net/auth/2.0/signon</type>
+                            </types>
                             <uri>http://regex-test/escaped-wildcard</uri>
                         </server>
                     </services>

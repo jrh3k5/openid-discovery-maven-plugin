@@ -57,7 +57,7 @@ public class DiscoveredServiceWriterTest {
         final String type = "this is the type";
         final String uri = "this is the uri";
         final DiscoveredService service = new DiscoveredService();
-        service.setType(type);
+        service.setTypes(new String[] { type });
         service.setUri(uri);
 
         writer.write(null, Collections.singleton(service), out);
@@ -67,7 +67,7 @@ public class DiscoveredServiceWriterTest {
 
         final DiscoveredService discovered = services.iterator().next();
         assertThat(discovered.getUri()).isEqualTo(uri);
-        assertThat(discovered.getType()).isEqualTo(type);
+        assertThat(discovered.getTypes().iterator().next()).isEqualTo(type);
         assertThat(discovered.getPriority()).isNull();
         assertThat(discovered.getLocalId()).isNull();
     }
@@ -130,7 +130,7 @@ public class DiscoveredServiceWriterTest {
         final String uri = "this is the uri";
         final String localId = "this is a local id";
         final DiscoveredService service = new DiscoveredService();
-        service.setType(type);
+        service.setTypes(new String[] { type });
         service.setUri(uri);
         service.setLocalId(localId);
 
@@ -141,7 +141,7 @@ public class DiscoveredServiceWriterTest {
 
         final DiscoveredService discovered = services.iterator().next();
         assertThat(discovered.getUri()).isEqualTo(uri);
-        assertThat(discovered.getType()).isEqualTo(type);
+        assertThat(discovered.getTypes().iterator().next()).isEqualTo(type);
         assertThat(discovered.getLocalId()).isEqualTo(localId);
     }
 
@@ -159,7 +159,7 @@ public class DiscoveredServiceWriterTest {
         final String uri = "this is the uri";
         final int priority = 1347;
         final DiscoveredService service = new DiscoveredService();
-        service.setType(type);
+        service.setTypes(new String[] { type });
         service.setUri(uri);
         service.setPriority(priority);
 
@@ -170,7 +170,7 @@ public class DiscoveredServiceWriterTest {
 
         final DiscoveredService discovered = services.iterator().next();
         assertThat(discovered.getUri()).isEqualTo(uri);
-        assertThat(discovered.getType()).isEqualTo(type);
+        assertThat(discovered.getTypes().iterator().next()).isEqualTo(type);
         assertThat(discovered.getPriority()).isEqualTo(priority);
     }
 
@@ -190,7 +190,8 @@ public class DiscoveredServiceWriterTest {
      * 
      * @param document
      *            A {@link Document} object representing the discovery document.
-     * @return A {@link Collection} of {@link DiscoveredService} objects representing the services parsed from the given document.
+     * @return A {@link Collection} of {@link DiscoveredService} objects representing the services parsed from the given
+     *         document.
      */
     @SuppressWarnings("unchecked")
     private Collection<DiscoveredService> getServices(Document document) {
@@ -203,7 +204,7 @@ public class DiscoveredServiceWriterTest {
         for (Element serviceElement : (List<Element>) xrdElement.getChildren("Service", xrdNamespace)) {
             final DiscoveredService service = new DiscoveredService();
             service.setUri(serviceElement.getChildText("URI", xrdNamespace));
-            service.setType(serviceElement.getChildText("Type", xrdNamespace));
+            service.setTypes(new String[] { serviceElement.getChildText("Type", xrdNamespace) });
 
             final Attribute priority = serviceElement.getAttribute("priority");
             if (priority != null)

@@ -65,10 +65,10 @@ public class DiscoveredServiceTest {
      * Test the retrieval of the type.
      */
     @Test
-    public void getType() {
+    public void getTypes() {
         final String type = "a.type";
-        service.setType(type);
-        assertThat(service.getType()).isEqualTo(type);
+        service.setTypes(new String[] { type });
+        assertThat(service.getTypes().iterator().next()).isEqualTo(type);
     }
 
     /**
@@ -77,8 +77,8 @@ public class DiscoveredServiceTest {
     @Test
     public void getTypeNotSet() {
         expected.expect(IllegalStateException.class);
-        expected.expectMessage("Type has not yet been set prior to retrieval.");
-        service.getType();
+        expected.expectMessage("Type(s) has not yet been set prior to retrieval.");
+        service.getTypes();
     }
 
     /**
@@ -157,13 +157,23 @@ public class DiscoveredServiceTest {
     }
 
     /**
-     * Setting a {@code null} type should fail.
+     * Setting a {@code null} type array should fail.
      */
     @Test
-    public void testSetTypeNull() {
+    public void testSetTypesNullArray() {
+        expected.expect(IllegalArgumentException.class);
+        expected.expectMessage("Type array cannot be null.");
+        service.setTypes(null);
+    }
+
+    /**
+     * Setting an array containing a {@code null} type should fail.
+     */
+    @Test
+    public void testSetTypesNullValue() {
         expected.expect(IllegalArgumentException.class);
         expected.expectMessage("Type cannot be null.");
-        service.setType(null);
+        service.setTypes(new String[] { null });
     }
 
     /**
