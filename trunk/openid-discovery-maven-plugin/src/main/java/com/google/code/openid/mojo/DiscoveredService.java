@@ -1,5 +1,7 @@
 package com.google.code.openid.mojo;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.regex.Pattern;
 
 /**
@@ -9,7 +11,7 @@ import java.util.regex.Pattern;
  * <ul>
  * <li>{@link #setHostRegex(String) hostRegex}</li>
  * <li>{@link #setUri(String) uri}</li>
- * <li>{@link #setType(String) type}</li>
+ * <li>{@link #setTypes(String[]) type}</li>
  * </ul>
  * 
  * @author jrh3k5
@@ -19,7 +21,7 @@ import java.util.regex.Pattern;
 public class DiscoveredService {
     private Pattern hostRegex;
     private String uri;
-    private String type;
+    private HashSet<String> types = null;
     private Integer priority;
     private String localId;
 
@@ -42,17 +44,17 @@ public class DiscoveredService {
     }
 
     /**
-     * Get the type URL associated with the service.
+     * Get the types URL associated with the service.
      * 
      * @return The type URL.
      * @throws IllegalStateException
-     *             If the type URL has not yet been {@link #setType(String) set}.
+     *             If the type URL has not yet been {@link #setTypes(String[]) set}.
      */
-    public String getType() {
-        if (type == null)
-            throw new IllegalStateException("Type has not yet been set prior to retrieval.");
+    public Set<String> getTypes() {
+        if (types == null)
+            throw new IllegalStateException("Type(s) has not yet been set prior to retrieval.");
 
-        return type;
+        return types;
     }
 
     /**
@@ -126,20 +128,23 @@ public class DiscoveredService {
     }
 
     /**
-     * Set the type URL of the discovered service.
+     * Set a type URL to the discovered service.
      * 
-     * @param type
-     *            The type URL.
+     * @param types
+     *            An array of the type URLs.
      * @throws IllegalArgumentException
-     *             If the given URL is {@code null}.
+     *             If the given array is {@code null} or contains {@code null}.
      */
-    public void setType(String type) {
-        if (type == null)
-            throw new IllegalArgumentException("Type cannot be null.");
+    public void setTypes(String[] types) {
+        if (types == null) {
+            throw new IllegalArgumentException("Type array cannot be null.");
+        }
 
-        this.type = type;
+        for (String type : types) {
+            addType(type);
+        }
     }
-
+    
     /**
      * Set the value of the {@code <URI />} tag for a service.
      * 
@@ -153,5 +158,24 @@ public class DiscoveredService {
             throw new IllegalArgumentException("URI cannot be null.");
 
         this.uri = uri;
+    }
+
+    /**
+     * Add a type URL to the discovered service.
+     * 
+     * @param type
+     *            The type URL.
+     * @throws IllegalArgumentException
+     *             If the given URL is {@code null}.
+     */
+    private void addType(String type) {
+        if (type == null)
+            throw new IllegalArgumentException("Type cannot be null.");
+
+        // Lazily instantiate hashset
+        if (types == null)
+            types = new HashSet<String>();
+
+        types.add(type);
     }
 }

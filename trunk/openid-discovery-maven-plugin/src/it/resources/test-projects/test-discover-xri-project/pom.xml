@@ -31,7 +31,9 @@
                     <services>
                         <service>
                             <hostRegex><![CDATA[\/xri]]></hostRegex>
-                            <type>http://specs.openid.net/auth/2.0/server</type>
+                            <types>
+                                <type>http://specs.openid.net/auth/2.0/server</type>
+                            </types>
                             <uri>http://xri-test</uri>
                         </service>
                     </services>

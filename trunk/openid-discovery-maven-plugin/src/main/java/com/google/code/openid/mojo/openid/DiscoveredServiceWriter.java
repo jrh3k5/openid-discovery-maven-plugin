@@ -56,7 +56,10 @@ public class DiscoveredServiceWriter {
             if (servicePriority != null)
                 serviceElement.setAttribute("priority", servicePriority.toString());
 
-            serviceElement.addContent(asElement("Type", xrdNamespace, service.getType()));
+            for(String type : service.getTypes()) {
+            	serviceElement.addContent(asElement("Type", xrdNamespace, type));
+            }
+            
             serviceElement.addContent(asElement("URI", xrdNamespace, service.getUri()));
 
             if (service.getLocalId() != null)
