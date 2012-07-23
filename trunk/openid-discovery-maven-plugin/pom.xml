@@ -7,7 +7,7 @@
     </parent>
     <groupId>com.googlecode.openid-discovery-maven-plugin</groupId>
     <artifactId>openid-discovery-maven-plugin</artifactId>
-    <version>2.0-SNAPSHOT</version>
+    <version>2.0</version>
     <packaging>maven-plugin</packaging>
     <name>OpenID Discovery Maven Plugin</name>
     <description>A plugin to start up and simulate an OpenID discovery service</description>
@@ -19,9 +19,9 @@
     </properties>
     <url>http://code.google.com/p/openid-discovery-maven-plugin/</url>
     <scm>
-        <connection>scm:svn:https://openid-discovery-maven-plugin.googlecode.com/svn/trunk/openid-discovery-maven-plugin</connection>
-        <developerConnection>scm:svn:https://openid-discovery-maven-plugin.googlecode.com/svn/trunk/openid-discovery-maven-plugin</developerConnection>
-        <url>https://openid-discovery-maven-plugin.googlecode.com/svn/trunk/openid-discovery-maven-plugin</url>
+        <connection>scm:svn:https://openid-discovery-maven-plugin.googlecode.com/svn/tags/openid-discovery-maven-plugin-2.0</connection>
+        <developerConnection>scm:svn:https://openid-discovery-maven-plugin.googlecode.com/svn/tags/openid-discovery-maven-plugin-2.0</developerConnection>
+        <url>https://openid-discovery-maven-plugin.googlecode.com/svn/tags/openid-discovery-maven-plugin-2.0</url>
     </scm>
     <issueManagement>
         <system>GoogleCode</system>
